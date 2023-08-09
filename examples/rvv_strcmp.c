@@ -7,7 +7,8 @@ int strcmp_vec(const char *src1, const char *src2) {
   const unsigned char *s1 = (const void*)src1, *s2 = (const void*)src2;
   size_t vlmax = __riscv_vsetvlmax_e8m2();
   long first_set_bit = -1;
-  for (size_t vl; first_set_bit < 0; s1 += vl, s2 += vl) {
+  size_t vl;
+  for (; first_set_bit < 0; s1 += vl, s2 += vl) {
     vuint8m2_t vec_src1 = __riscv_vle8ff_v_u8m2(s1, &vl, vlmax);
     vuint8m2_t vec_src2 = __riscv_vle8ff_v_u8m2(s2, &vl, vl);
 
