@@ -10,7 +10,7 @@ char *strncpy_vec(char *dst, char *src, size_t count) {
   size_t vl;
   for (; first_set_bit < 0; count -= vl, s += vl, d += vl) {
     if (count == 0)
-      return save;
+      return dst;
     
     vl = __riscv_vsetvl_e8m1(count);
     vuint8m1_t vec_src = __riscv_vle8ff_v_u8m1(s, &vl, vl);
