@@ -7,7 +7,8 @@ size_t strlen_vec(char *src) {
   size_t vlmax = __riscv_vsetvlmax_e8m8();
   unsigned char *s = (unsigned char*)src;
   long first_set_bit = -1;
-  for (size_t vl; first_set_bit < 0; s += vl) {
+  size_t vl;
+  for (; first_set_bit < 0; s += vl) {
     vuint8m8_t vec_src = __riscv_vle8ff_v_u8m8(s, &vl, vlmax);
     vbool1_t string_terminate = __riscv_vmseq_vx_u8m8_b1(vec_src, 0, vl);
     first_set_bit = __riscv_vfirst_m_b1(string_terminate, vl);
