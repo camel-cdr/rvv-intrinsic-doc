@@ -18,7 +18,7 @@ char *strcpy_vec(char *dst, const char *src) {
     __riscv_vse8_v_u8m8_m(mask, d, vec_src, vl);
     first_set_bit = __riscv_vfirst_m_b1(string_terminate, vl);
   }
-  return dsr;
+  return dst;
 }
 
 int main() {
