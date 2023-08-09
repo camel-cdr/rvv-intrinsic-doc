@@ -32,7 +32,7 @@ void reduce(double *a, double *b, double *result_sum, int *result_count,
 
     vbool64_t mask = __riscv_vmfne_vv_f64m1_b64(vec_a, vec_zero, vl);
 
-    vec_s = __riscv_vfmacc_vv_f64m1_m(mask, vec_s, vec_a, vec_b, vl);
+    vec_s = __riscv_vfmacc_vv_f64m1_tu(vec_s, vec_a, vec_b, vl);
     count = count + __riscv_vcpop_m_b64(mask, vl);
   }
   vfloat64m1_t vec_sum;
