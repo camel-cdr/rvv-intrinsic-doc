@@ -2,15 +2,16 @@
 #include <riscv_vector.h>
 #include <string.h>
 
-void *memcpy_vec(void *dst, void *src, size_t n) {
-  void *save = dst;
+void *memcpy_vec(void *restrict dst, const void *restrict src, size_t n) {
+  unsigned char *d = dst;
+  const unsigned char *s = src;
   // copy data byte by byte
-  for (size_t vl; n > 0; n -= vl, src += vl, dst += vl) {
+  for (size_t vl; n > 0; n -= vl, s += vl, d += vl) {
     vl = __riscv_vsetvl_e8m8(n);
-    vuint8m8_t vec_src = __riscv_vle8_v_u8m8(src, vl);
-    __riscv_vse8_v_u8m8(dst, vec_src, vl);
+    vuint8m8_t vec_src = __riscv_vle8_v_u8m8(s, vl);
+    __riscv_vse8_v_u8m8(d, vec_src, vl);
   }
-  return save;
+  return dst;
 }
 
 int main() {
